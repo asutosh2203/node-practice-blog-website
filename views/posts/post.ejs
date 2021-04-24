@@ -1,0 +1,23 @@
+<%- include("../partials/header"); -%>
+
+<h1><%=title%></h1>
+<p><%=content%></p>
+
+<button class="btn btn-primary delete-btn">Delete Post</button>
+
+<%- include("../partials/footer"); -%>
+<script>
+  const deleteButton = document.querySelector('.delete-btn')
+  deleteButton.addEventListener('click', (_) => {
+    fetch('/posts/delete/<%=post._id%>', {
+      method: 'delete',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((res) => {
+        if (res.ok) return res.json()
+      })
+      .then((data) => {
+        window.location.replace('/posts')
+      })
+  })
+</script>
